@@ -1,0 +1,220 @@
+<div class="containers">
+  <div class="wrap-form el-hide">
+    <div class="close">
+      <h2 class="add">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">{{
+          "person_add"
+        }}</mat-icon>
+        Add Company Staff For McDonald
+      </h2>
+      <span style="cursor: pointer" (click)="onShow($event)" class="el-show"
+        >X</span
+      >
+    </div>
+    <div class="update-data-user close-data">Silakan Perbarui Data Anda</div>
+    <div class="my-form">
+      <form [formGroup]="options" (submit)="onSubmitButton()">
+        <div class="form-email" id="form-one">
+          <div class="example-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Enter your email</mat-label>
+              <input
+                name="email"
+                matInput
+                placeholder="pat@example.com"
+                [formControl]="email"
+                (input)="onChange($event)"
+                required
+              />
+              <mat-error *ngIf="email.invalid">{{
+                getErrorMessage()
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-data" id="form-two">
+          <div>
+            <label>Civility*: </label>
+            <mat-radio-group
+              [formControl]="floatLabelControl"
+              name="civility"
+              (input)="onChange($event)"
+            >
+              <mat-radio-button value="Mr">Mr</mat-radio-button>
+              <mat-radio-button value="Mrs">Mrs</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field
+              appearance="fill"
+              [hideRequiredMarker]="hideRequiredControl.value"
+              [floatLabel]="getFloatLabelValue()"
+              class="first-name"
+            >
+              <input
+                matInput
+                placeholder="First Name"
+                (input)="onChange($event)"
+                name="firstname"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field
+              appearance="fill"
+              [hideRequiredMarker]="hideRequiredControl.value"
+              [floatLabel]="getFloatLabelValue()"
+              class="last-name"
+            >
+              <input
+                matInput
+                placeholder="Last Name"
+                (input)="onChange($event)"
+                name="lastname"
+                required
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-select" id="form-three">
+          <div class="wrp-select" id="entity">
+            <h4>Select Entity</h4>
+            <mat-form-field appearance="fill">
+              <mat-label>Entity</mat-label>
+              <mat-select
+                (selectionChange)="onChange($event)"
+                id="entity"
+                class="select-value"
+              >
+                <mat-option
+                  *ngFor="let entity of entities"
+                  [value]="entity.value"
+                >
+                  {{ entity.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="wrp-select" id="company">
+            <h4>Select Company</h4>
+            <mat-form-field appearance="fill">
+              <mat-label>Company</mat-label>
+              <mat-select (selectionChange)="onChange($event)" id="company">
+                <mat-option
+                  *ngFor="let company of companies"
+                  [value]="company.value"
+                >
+                  {{ company.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="wrp-select" id="usertypes">
+            <h4>Select User Type</h4>
+            <mat-form-field appearance="fill">
+              <mat-label>User Type</mat-label>
+              <mat-select (selectionChange)="onChange($event)" id="usertype">
+                <mat-option
+                  *ngFor="let userType of userTypes"
+                  [value]="userType.value"
+                >
+                  {{ userType.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="wrp-select" id="usertype">
+            <h4>Status Staff</h4>
+            <mat-form-field appearance="fill">
+              <mat-label>Status Staff</mat-label>
+              <mat-select (selectionChange)="onChange($event)" id="status">
+                <mat-option
+                  *ngFor="let statusstaff of statusstaff"
+                  [value]="statusstaff.value"
+                >
+                  {{ statusstaff.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="btn-btn" id="btn">
+          <button mat-raised-button color="warn">Cancel</button>
+          <button
+            mat-raised-button
+            data-dis="true"
+            class="btn-submit mat-button-disabled"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="wrap-tab">
+    <div class="tab-btn">
+      <button mat-button color="primary" (click)="onShow()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">{{
+          "person_add"
+        }}</mat-icon
+        >Add a Company Staff
+      </button>
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 center-tab"
+    >
+      <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="usertype">
+        <th mat-header-cell *matHeaderCellDef>User Type</th>
+        <td mat-cell *matCellDef="let element">{{ element.usertype }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="entity">
+        <th mat-header-cell *matHeaderCellDef>Entity</th>
+        <td mat-cell *matCellDef="let element">{{ element.entity }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element" class="active-status">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">
+            {{ element.status }}
+          </mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- Action -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            (click)="updateStaff(element)"
+            >{{ element.action[0] }}</mat-icon
+          >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            (click)="getIdStaff(element.id)"
+            >{{ element.action[1] }}</mat-icon
+          >
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
